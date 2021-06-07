@@ -20,12 +20,17 @@ BOOST_DOWN="https://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59
 BOOST_SRC="boost_1_59_0"
 BOOST_DIR="$BOOST_SRC"
 BOOST_LOCK="$LOCK_DIR/boost.lock"
+# Centos 8 miss rpcgen
+RPCGEN_DOWN="https://github.com/thkukuk/rpcsvc-proto/releases/download/v1.4.2/rpcsvc-proto-1.4.2.tar.xz"
+RPCGEN_SRC="rpcsvc-proto-1.4.2"
+RPCGEN_LOCK="$LOCK_DIR/mysql.rpcgen.lock"
 # common dependency fo mysql
 COMMON_LOCK="$LOCK_DIR/mysql.common.lock"
 
 # mysql install function
 function install_mysql {
     
+    [ ! -f /usr/bin/rpcgen ] && install_rpcgen
     [ ! -f /usr/local/bin/cmake ] && install_cmake 
     [ ! -d /usr/local/src/$BOOST_SRC ] && install_boost
 
@@ -159,6 +164,31 @@ function install_boost {
     echo "install boost complete."
     touch $BOOST_LOCK
 }
+
+# Centos 8 install rpcgen
+function install_rpcgen {
+    [ -f $RPCGEN_LOCK ] && return
+
+    echo "install rcpgen..."
+    cd $SRC_DIR
+    wget $RPCGEN_DOWN
+    xz -d $RPCGEN_SRC.tar.xz
+    tar -xvf $RPCGEN_SRC.tar
+    cd $RPCGEN_SRC
+    ./configure
+    [ $? != 0 ] && error_exit "rpcgen configure err"
+    make
+    [ $? != 0 ] && error_exit "rpcgen make err"
+    make install
+    [ $? != 0 ] && error_exit "rpcgen install err"
+    cd $SRC_DIR
+    rm -fr $RPCGEN_SRC
+
+    echo
+    echo "install rpcgen complete."
+    touch $RPCGEN_LOCK
+}
+
 
 # install common dependency
 # mysql compile need boost default dir=/usr/share/doc/boost-1.59.0
