@@ -20,7 +20,7 @@ BOOST_DOWN="https://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59
 BOOST_SRC="boost_1_59_0"
 BOOST_DIR="$BOOST_SRC"
 BOOST_LOCK="$LOCK_DIR/boost.lock"
-# Centos 8 miss rpcgen
+# Centos 8 missing rpcgen
 RPCGEN_DOWN="https://github.com/thkukuk/rpcsvc-proto/releases/download/v1.4.2/rpcsvc-proto-1.4.2.tar.xz"
 RPCGEN_SRC="rpcsvc-proto-1.4.2"
 RPCGEN_LOCK="$LOCK_DIR/mysql.rpcgen.lock"
@@ -193,11 +193,12 @@ function install_rpcgen {
 # install common dependency
 # mysql compile need boost default dir=/usr/share/doc/boost-1.59.0
 # remove system default cmake
+# centos 8.x missing libtirpc-devel
 # mysql user:group is mysql:mysql
 function install_common {
     [ -f $COMMON_LOCK ] && return
     yum install -y sudo wget gcc gcc-c++ ncurses ncurses-devel bison \
-        tcpdump iptables iptables-services
+        tcpdump iptables iptables-services libtirpc-devel
     [ $? != 0 ] && error_exit "common dependence install err"
     
     # create user for mysql
