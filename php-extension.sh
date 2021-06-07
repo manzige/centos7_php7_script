@@ -25,7 +25,7 @@ function echo_ini {
 function add_swoole {
     local SWOOLE_VER=${EXT_VER:-"4.5.10"}
     cd $SRC_DIR
-    [ ! -f swoole.tar.gz ] && wget https://pecl.php.net/get/swoole-$SWOOLE_VER.tgz -O swoole.tar.gz
+    [ ! -f swoole.tar.gz ] && wget --no-check-certificate https://pecl.php.net/get/swoole-$SWOOLE_VER.tgz -O swoole.tar.gz
     [ ! -f swoole ] && mkdir swoole
     tar -zxvf swoole.tar.gz -C swoole --strip-components=1
     cd swoole
@@ -49,7 +49,7 @@ function add_swoole {
 function add_protobuf {
     local PROTOBUF_VER=${EXT_VER:-"3.14.0"}
     cd $SRC_DIR
-    [ ! -f protobuf.tar.gz ] && wget https://pecl.php.net/get/protobuf-$PROTOBUF_VER.tgz -O protobuf.tar.gz
+    [ ! -f protobuf.tar.gz ] && wget --no-check-certificate https://pecl.php.net/get/protobuf-$PROTOBUF_VER.tgz -O protobuf.tar.gz
     [ ! -f protobuf ] && mkdir protobuf
     tar -zxvf protobuf.tar.gz -C protobuf --strip-components=1
     cd protobuf
@@ -68,7 +68,7 @@ function add_protobuf {
 function add_redis {
     local PHPREDIS_VER=${EXT_VER:-"5.3.2"}
     cd $SRC_DIR
-    [ ! -f phpredis.tar.gz ] && wget https://pecl.php.net/get/redis-$PHPREDIS_VER.tgz -O phpredis.tar.gz
+    [ ! -f phpredis.tar.gz ] && wget --no-check-certificate https://pecl.php.net/get/redis-$PHPREDIS_VER.tgz -O phpredis.tar.gz
     [ ! -f phpredis ] && mkdir phpredis
     tar -zxvf phpredis.tar.gz -C phpredis --strip-components=1
     cd phpredis
@@ -87,7 +87,7 @@ function add_redis {
 function add_mcrypt {
     local MCRYPT_VER=${EXT_VER:-"1.0.4"}
     cd $SRC_DIR
-    [ ! -f phpmcrypt.tar.gz ] && wget https://pecl.php.net/get/mcrypt-$MCRYPT_VER.tgz -O phpmcrypt.tar.gz
+    [ ! -f phpmcrypt.tar.gz ] && wget --no-check-certificate https://pecl.php.net/get/mcrypt-$MCRYPT_VER.tgz -O phpmcrypt.tar.gz
     [ ! -d phpmcrypt ] && mkdir phpmcrypt
     tar -zxvf phpmcrypt.tar.gz -C phpmcrypt --strip-components=1
     cd phpmcrypt

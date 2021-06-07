@@ -35,7 +35,7 @@ function install_php {
     echo "install php..."
 
     cd $SRC_DIR
-    [ ! -f $PHP_SRC$SRC_SUFFIX ] && wget $PHP_DOWN
+    [ ! -f $PHP_SRC$SRC_SUFFIX ] && wget --no-check-certificate $PHP_DOWN
     tar -zxvf $PHP_SRC$SRC_SUFFIX
     cd $PHP_SRC
     make clean > /dev/null 2>&1
